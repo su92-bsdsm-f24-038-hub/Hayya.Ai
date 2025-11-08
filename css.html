@@ -1,0 +1,124 @@
+/* static/style.css */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #3c2a3d; /* Gehra, muted gulabi/purple */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #f5e9e2; /* Halka cream text color */
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 500px;
+    height: 90vh;
+    background-color: #593f5a; /* Thora halka gulabi/purple */
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 2px solid #d4af9a; /* Soft gold/rose border */
+}
+
+.chat-header {
+    background-color: #d4af9a; /* Soft gold/rose header */
+    color: #3c2a3d;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #593f5a;
+}
+
+.chat-header h1 {
+    margin: 0;
+    font-family: 'Lateef', serif; /* Elegant Arabic/Urdu font */
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.chat-header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.9em;
+}
+
+.chat-window {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Messages ke darmiyan fasla */
+}
+
+.chat-window::-webkit-scrollbar { width: 8px; }
+.chat-window::-webkit-scrollbar-track { background: #593f5a; }
+.chat-window::-webkit-scrollbar-thumb {
+    background-color: #d4af9a;
+    border-radius: 10px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 12px 18px;
+    border-radius: 25px;
+    line-height: 1.6;
+    white-space: pre-wrap; /* Yeh line break ko show karega */
+}
+
+.user-message {
+    background-color: #d4af9a;
+    color: #3c2a3d;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+.ai-message {
+    background-color: #725472; /* Darker, muted purple for AI */
+    color: #f5e9e2;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.message p { margin: 0; }
+
+.chat-input-area {
+    display: flex;
+    padding: 15px;
+    background-color: #3c2a3d;
+}
+
+#message-input {
+    flex-grow: 1;
+    border: 1px solid #d4af9a;
+    padding: 12px;
+    border-radius: 25px;
+    background-color: #593f5a;
+    color: #f5e9e2;
+    font-size: 1em;
+}
+
+#message-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #d4af9a;
+}
+
+#send-btn {
+    background-color: #d4af9a;
+    border: none;
+    color: #3c2a3d;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+#send-btn:hover { background-color: #e6b8a2; }

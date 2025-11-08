@@ -1,0 +1,65 @@
+# Ignore Python virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Ignore environment variables
+.env
+.env.local
+
+# Ignore log files
+*.log
+
+# Ignore database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Ignore test coverage
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+
+# Ignore distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Ignore temporary files
+*.tmp
+temp/
+tmp/
+
+# Ignore OS files
+Thumbs.db
+desktop.ini
+
+# Ignore backup files
+*.bak
+*.backup
+
+# Don't ignore static assets (we want these)
+!static/
+!static/**
+
+# Ignore sensitive data (if you add API keys later, keep them here)
+# config.json
+# secrets.json

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hayya.AI - Luna Cycle 🌙</title>
+    <link rel="stylesheet" href="/static/dark-luna-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Wrapper -->
+    <div class="wrapper">
+        
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="app-title">Hayya.AI 💖</h1>
+            <p class="app-subtitle">Track your body. Understand your rhythm.</p>
+        </header>
+
+        <!-- Welcome Message -->
+        <div class="welcome-message">
+            <p>Welcome to Hayya.AI 💖 — your personal rhythm tracker.</p>
+        </div>
+
+        <!-- Main Glass Card Container -->
+        <div class="main-container">
+            
+            <!-- Prediction Form -->
+            <form id="prediction-form" class="prediction-form">
+                
+                <!-- Date Input Section -->
+                <div class="input-group">
+                    <label for="past-dates" class="input-label">
+                        Enter your past period start dates (YYYY-MM-DD)
+                    </label>
+                    <textarea 
+                        id="past-dates" 
+                        class="date-textarea"
+                        placeholder="2025-07-01&#10;2025-07-29&#10;2025-08-27&#10;2025-09-25&#10;&#10;One date per line"
+                        rows="5"
+                        required
+                    ></textarea>
+                    <p class="input-hint">💡 Enter at least 3 dates for accurate predictions</p>
+                </div>
+
+                <!-- Lookback Cycles Input Section -->
+                <div class="input-group">
+                    <label for="lookback-cycles" class="input-label">
+                        How many cycles to consider?
+                    </label>
+                    <input 
+                        type="number" 
+                        id="lookback-cycles" 
+                        class="number-input"
+                        placeholder="6"
+                        min="1"
+                        max="12"
+                        value="6"
+                    >
+                    <p class="input-hint">Recommended: 6 cycles for best accuracy</p>
+                </div>
+
+                <!-- Predict Button -->
+                <button type="submit" class="predict-button" id="predict-btn">
+                    <span class="btn-text">💖 Predict My Next Period</span>
+                    <span class="btn-glow"></span>
+                </button>
+
+            </form>
+
+            <!-- Loading State -->
+            <div class="loading-state" id="loading-state">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Calculating your rhythm... 💖</p>
+            </div>
+
+        </div>
+
+        <!-- Results Card (Hidden initially) -->
+        <div class="results-card" id="results-card">
+            
+            <!-- Result Header -->
+            <div class="result-header">
+                <h2 class="result-title">Your Prediction ✨</h2>
+                <p class="result-intro" id="result-intro">You might expect your next period around Nov 28, 2025 (±2 days). 💖</p>
+            </div>
+
+            <!-- Results Grid -->
+            <div class="results-grid">
+                
+                <!-- Predicted Date Box -->
+                <div class="result-box featured-box">
+                    <div class="result-icon">🌸</div>
+                    <div class="result-content">
+                        <h3 class="result-label">Predicted Date</h3>
+                        <p class="result-value" id="predicted-date">November 28, 2025</p>
+                    </div>
+                </div>
+
+                <!-- Mean Cycle Box -->
+                <div class="result-box">
+                    <div class="result-icon">⏳</div>
+                    <div class="result-content">
+                        <h3 class="result-label">Mean Cycle</h3>
+                        <p class="result-value" id="mean-cycle">28.5 days</p>
+                    </div>
+                </div>
+
+                <!-- Confidence Range Box -->
+                <div class="result-box">
+                    <div class="result-icon">🎯</div>
+                    <div class="result-content">
+                        <h3 class="result-label">Confidence Range</h3>
+                        <p class="result-value" id="confidence-range">Nov 27 - Nov 29</p>
+                    </div>
+                </div>
+
+                <!-- Fertile Window Box -->
+                <div class="result-box">
+                    <div class="result-icon">🌿</div>
+                    <div class="result-content">
+                        <h3 class="result-label">Fertile Window</h3>
+                        <p class="result-value" id="fertile-window">Nov 13 - Nov 21</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Optional Note -->
+            <div class="result-note" id="result-note" style="display: none;">
+                <div class="note-icon">⚠️</div>
+                <p class="note-text" id="note-text">Your cycles appear irregular. Consider consulting a healthcare provider.</p>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="disclaimer">This is an estimation tool — not a medical device.</p>
+            <p class="powered-by">Powered by Hayya.AI with care 💜</p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/static/dark-luna-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hayya.AI - Period Predictor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #7c3aed;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #6b7280;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        textarea, input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        textarea:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #7c3aed;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .hint {
+            font-size: 0.85em;
+            color: #9ca3af;
+            margin-top: 5px;
+        }
+
+        .predict-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+        }
+
+        .predict-btn:active {
+            transform: translateY(0);
+        }
+
+        .predict-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+            color: #7c3aed;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #e5e7eb;
+            border-top: 3px solid #7c3aed;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 15px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results h2 {
+            color: #92400e;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .result-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+        }
+
+        .result-item strong {
+            color: #7c3aed;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .result-item span {
+            color: #374151;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .note {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(248, 113, 113, 0.2);
+            border-left: 4px solid #ef4444;
+            border-radius: 5px;
+            color: #991b1b;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 0.85em;
+        }
+
+        .footer strong {
+            color: #ef4444;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            color: #7c3aed;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ec4899;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌸 Hayya.AI</h1>
+            <p>Period Predictor - Track Your Cycle</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="/chat-page">💬 Chat with Hayya</a>
+        </div>
+
+        <form id="predictor-form">
+            <div class="form-group">
+                <label for="past-dates">Enter Your Past Period Start Dates</label>
+                <textarea 
+                    id="past-dates" 
+                    placeholder="Enter dates in YYYY-MM-DD format&#10;Example:&#10;2025-07-01&#10;2025-07-29&#10;2025-08-27&#10;2025-09-25"
+                    required
+                ></textarea>
+                <div class="hint">💡 Enter each date on a new line or separated by commas</div>
+            </div>
+
+            <div class="form-group">
+                <label for="lookback">Lookback Cycles (Optional)</label>
+                <input type="number" id="lookback" placeholder="6" min="1" max="12" value="6">
+                <div class="hint">Number of recent cycles to consider for prediction</div>
+            </div>
+
+            <button type="submit" class="predict-btn" id="predict-btn">
+                🔮 Predict Next Period
+            </button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Calculating your prediction...</p>
+        </div>
+
+        <div class="results" id="results">
+            <h2>📊 Your Prediction Results</h2>
+            
+            <div class="result-item">
+                <strong>Predicted Next Period Date:</strong>
+                <span id="predicted-date">-</span>
+            </div>
+
+            <div class="result-item">
+                <strong>Mean Cycle Length:</strong>
+                <span id="mean-cycle">-</span> days
+            </div>
+
+            <div class="result-item">
+                <strong>Standard Deviation:</strong>
+                <span id="std-dev">-</span> days
+            </div>
+
+            <div class="result-item">
+                <strong>Confidence Interval:</strong>
+                <span id="ci-range">-</span>
+            </div>
+
+            <div class="result-item">
+                <strong>Fertile Window:</strong>
+                <span id="fertile-window">-</span>
+            </div>
+
+            <div class="note" id="note-section" style="display: none;">
+                <strong>⚠️ Note:</strong> <span id="note-text"></span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>⚕️ Medical Disclaimer:</strong> This is an estimation tool only. For medical advice, please consult a healthcare professional.</p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('predictor-form');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        const predictBtn = document.getElementById('predict-btn');
+
+        // Format date to be more readable
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const pastDatesInput = document.getElementById('past-dates').value;
+            const lookback = parseInt(document.getElementById('lookback').value) || 6;
+
+            // Parse dates (support comma or newline separation)
+            const pastStarts = pastDatesInput
+                .split(/[\n,]+/)
+                .map(date => date.trim())
+                .filter(date => date.length > 0);
+
+            // Validate input
+            if (pastStarts.length === 0) {
+                alert('Please enter at least one date');
+                return;
+            }
+
+            // Show loading, hide results
+            loading.classList.add('active');
+            results.classList.remove('active');
+            predictBtn.disabled = true;
+
+            try {
+                // Send async request to backend
+                const response = await fetch('http://localhost:8000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        past_starts: pastStarts,
+                        lookback: lookback
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || 'Prediction failed');
+                }
+
+                const data = await response.json();
+
+                // Display results
+                document.getElementById('predicted-date').textContent = formatDate(data.predicted_date);
+                document.getElementById('mean-cycle').textContent = data.mean_cycle;
+                document.getElementById('std-dev').textContent = data.std_dev;
+                document.getElementById('ci-range').textContent = 
+                    `${formatDate(data.ci_lower)} — ${formatDate(data.ci_upper)}`;
+                document.getElementById('fertile-window').textContent = 
+                    `${formatDate(data.fertile_window_start)} — ${formatDate(data.fertile_window_end)}`;
+
+                // Show note if present
+                const noteSection = document.getElementById('note-section');
+                if (data.note) {
+                    document.getElementById('note-text').textContent = data.note;
+                    noteSection.style.display = 'block';
+                } else {
+                    noteSection.style.display = 'none';
+                }
+
+                // Show results
+                results.classList.add('active');
+
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+                console.error('Prediction error:', error);
+            } finally {
+                loading.classList.remove('active');
+                predictBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

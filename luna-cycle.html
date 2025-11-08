@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luna Cycle 🌙 - Period Predictor</title>
+    <link rel="stylesheet" href="/static/luna-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo">
+                <span class="icon">🌙</span>
+                <h1 class="app-title">Luna Cycle</h1>
+            </div>
+            <p class="tagline">Track your body. Understand your rhythm.</p>
+        </header>
+
+        <!-- Greeting Section -->
+        <div class="greeting">
+            <p>Hey beautiful, let's track your cycle 🌸</p>
+        </div>
+
+        <!-- Main Prediction Card -->
+        <div class="main-card">
+            <form id="prediction-form">
+                
+                <!-- Section 1: Date Input -->
+                <div class="input-section">
+                    <label for="past-dates" class="input-label">
+                        <span class="label-icon">🌸</span>
+                        Enter your past period start dates
+                    </label>
+                    <textarea 
+                        id="past-dates" 
+                        class="date-input"
+                        placeholder="2025-07-01&#10;2025-07-29&#10;2025-08-27&#10;2025-09-25&#10;&#10;(One date per line in YYYY-MM-DD format)"
+                        rows="6"
+                        required
+                    ></textarea>
+                    <p class="input-hint">💡 Enter each date on a new line for best results</p>
+                </div>
+
+                <!-- Section 2: Lookback Cycles -->
+                <div class="input-section">
+                    <label for="lookback-cycles" class="input-label">
+                        <span class="label-icon">🌿</span>
+                        How many cycles to consider? (optional)
+                    </label>
+                    <input 
+                        type="number" 
+                        id="lookback-cycles" 
+                        class="number-input"
+                        placeholder="6"
+                        min="1"
+                        max="12"
+                        value="6"
+                    >
+                    <p class="input-hint">Recommended: 6 cycles for accurate predictions</p>
+                </div>
+
+                <!-- Predict Button -->
+                <button type="submit" class="predict-button" id="predict-btn">
+                    <span class="btn-icon">💖</span>
+                    Predict My Next Period
+                </button>
+
+            </form>
+
+            <!-- Loading Indicator -->
+            <div class="loading-container" id="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">Reading your rhythm... 🌙</p>
+            </div>
+        </div>
+
+        <!-- Results Card (Hidden initially) -->
+        <div class="result-card" id="result-card">
+            <div class="result-header">
+                <h2 class="result-title">Your Prediction ✨</h2>
+                <p class="result-intro">Here's what your body is telling us:</p>
+            </div>
+
+            <div class="result-grid">
+                
+                <!-- Predicted Date -->
+                <div class="result-item primary-result">
+                    <div class="result-icon">🌙</div>
+                    <div class="result-content">
+                        <h3 class="result-label">Next Period Expected</h3>
+                        <p class="result-value" id="predicted-date">November 28, 2025</p>
+                        <p class="result-subtext" id="confidence-text">(±2 days)</p>
+                    </div>
+                </div>
+
+                <!-- Mean Cycle Length -->
+                <div class="result-item">
+                    <div class="result-icon-small">💗</div>
+                    <div class="result-content">
+                        <h4 class="result-label-small">Mean Cycle Length</h4>
+                        <p class="result-value-small" id="mean-cycle">28.5 days</p>
+                    </div>
+                </div>
+
+                <!-- Standard Deviation -->
+                <div class="result-item">
+                    <div class="result-icon-small">📊</div>
+                    <div class="result-content">
+                        <h4 class="result-label-small">Cycle Variability</h4>
+                        <p class="result-value-small" id="std-dev">±1.3 days</p>
+                    </div>
+                </div>
+
+                <!-- Confidence Interval -->
+                <div class="result-item">
+                    <div class="result-icon-small">🎯</div>
+                    <div class="result-content">
+                        <h4 class="result-label-small">Confidence Window</h4>
+                        <p class="result-value-small" id="confidence-interval">Nov 27 - Nov 29</p>
+                    </div>
+                </div>
+
+                <!-- Fertile Window -->
+                <div class="result-item">
+                    <div class="result-icon-small">🌸</div>
+                    <div class="result-content">
+                        <h4 class="result-label-small">Fertile Window</h4>
+                        <p class="result-value-small" id="fertile-window">Nov 13 - Nov 21</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Optional Note -->
+            <div class="result-note" id="result-note" style="display: none;">
+                <div class="note-icon">⚠️</div>
+                <p class="note-text" id="note-text">Your cycles appear irregular. Consider consulting a healthcare provider.</p>
+            </div>
+
+            <!-- Encouraging Message -->
+            <div class="encouragement">
+                <p>You're doing great tracking your health! 🌿</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="disclaimer">
+                <span class="footer-icon">💫</span>
+                This is an estimation tool, not medical advice. For health concerns, please consult a healthcare professional.
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript for async functionality -->
+    <script src="/static/luna-script.js"></script>
+</body>
+</html>
