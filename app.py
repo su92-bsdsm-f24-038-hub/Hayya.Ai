@@ -86,6 +86,11 @@ async def serve_dark_luna():
 async def serve_chat():
     return FileResponse("chat.html")
 
+# Serve the privacy policy page
+@app.get("/privacy-policy")
+async def serve_privacy_policy():
+    return FileResponse("privacy-policy.html")
+
 # Period Predictor endpoint (async)
 @app.post("/predict", response_model=PredictResponse)
 async def predict_period(request: PredictRequest):
