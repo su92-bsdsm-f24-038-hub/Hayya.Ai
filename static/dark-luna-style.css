@@ -77,6 +77,24 @@ body {
     animation: fadeIn 1.2s ease-out;
 }
 
+/* Logo Styling */
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.app-logo {
+    width: 200px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--shadow-pink);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.app-logo:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow);
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
