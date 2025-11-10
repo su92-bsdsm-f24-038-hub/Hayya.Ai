@@ -66,6 +66,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 async def health_check():
     return {"status": "ok", "message": "Hayya.AI Backend is running"}
 
+# Favicon endpoint
+@app.get("/favicon.ico")
+async def favicon():
+    return FileResponse("static/logo.jpg")
+
 # Serve the main HTML page
 @app.get("/index")
 async def serve_index():
