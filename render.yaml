@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: hayya-ai
+    runtime: python
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.9
+      - key: PORT
+        generateValue: true
+    healthCheckPath: /
