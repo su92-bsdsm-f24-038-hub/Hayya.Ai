@@ -9,6 +9,11 @@ from typing import List, Optional
 from datetime import datetime, timedelta
 import statistics
 import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = FastAPI()
 
@@ -23,7 +28,10 @@ app.add_middleware(
 
 # Gemini AI configuration for chatbot
 try:
-    genai.configure(api_key="AIzaSyCENWeW9so8zX0fCTPChY2a3z-0fJ3oet0")
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY not found in environment variables")
+    genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-2.0-flash')
     print("AI Model loaded successfully.")
 except Exception as e:
